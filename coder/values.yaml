@@ -1,0 +1,34 @@
+# Not very customizable currently
+ingressRoute:
+  url: coder.example.com
+  service:
+    name: coder
+    port: 80
+
+# Custom Entries
+# Database configuration
+database:
+  url: coder-db-postgresql.postgres.svc.cluster.local:5432
+  secret:
+    # This must match what Coder is expecting below
+    name: coder-db-url
+    username: coder
+    password: coder
+    database: coder
+
+# Coder Helm Chart Configuration
+# More found here: https://artifacthub.io/packages/helm/coder-v2/coder?modal=values
+coder:
+  env:
+    - name: CODER_PG_CONNECTION_URL
+      valueFrom:
+        secretKeyRef:
+          # This must match the database.secret.name value above.
+          name: coder-db-url
+          key: url
+
+    - name: CODER_ACCESS_URL
+      value: "https://coder.example.com"
+
+  service:
+    type: ClusterIP
