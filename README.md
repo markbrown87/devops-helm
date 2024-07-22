@@ -22,7 +22,7 @@ helm upgrade --install coder-db bitnami/postgresql \
 ```
 2. Install Coder Umbrella Chart. Take note of the postgres information you changed above and apply them below either during install (similar to below) or by modiying [the values file](coder/values.yaml).
 ```bash
-helm upgrade --install coder coder \
+helm upgrade --install coder . \
     --namespace coder \
     --create-namespace \
     --set ingressRoute.url=coder.example.com \
@@ -38,7 +38,9 @@ Note that the IP Addresses below are localhost. Please change those - as well as
 ```bash
 helm repo add democratic-csi https://democratic-csi.github.io/charts/ && \
 helm repo update && \
-helm upgrade --install my-democratic-csi democratic-csi/democratic-csi \
+helm upgrade --install democratic-csi democratic-csi/democratic-csi \
+    --namespace csi \
+    --create-namespace \
     --set driver.config.httpConnection.host=127.0.0.1 \
     --set driver.config.httpConnection.password="my-root-password" \
     --set driver.config.sshConnection.host=127.0.0.1 \
