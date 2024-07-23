@@ -21,6 +21,18 @@ database:
 coder:
   coder:
     env:
+      - name: CODER_OAUTH2_GITHUB_ALLOW_SIGNUPS
+        value: "true"
+      - name: CODER_OAUTH2_GITHUB_CLIENT_ID
+        value: "Dgg23.....FGr"
+      - name: CODER_OAUTH2_GITHUB_CLIENT_SECRET
+        value: "ac....0"
+      # If setting allowed orgs, comment out CODER_OAUTH2_GITHUB_ALLOW_EVERYONE and its value
+      # - name: CODER_OAUTH2_GITHUB_ALLOWED_ORGS
+      #   value: "your-org"
+      # If allowing everyone, comment out CODER_OAUTH2_GITHUB_ALLOWED_ORGS and it's value
+      - name: CODER_OAUTH2_GITHUB_ALLOW_EVERYONE
+        value: "true"
       - name: CODER_PG_CONNECTION_URL
         valueFrom:
           secretKeyRef:
