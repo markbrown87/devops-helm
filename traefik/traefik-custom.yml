@@ -1,0 +1,82 @@
+---
+# Source: traefik-custom/templates/secret.yml
+apiVersion: v1
+data:
+  apiKey: ZmcyMjQuLi4u
+  email: Zmlyc3QubGFzdEBtZS5jb20=
+kind: Secret
+metadata:
+  name: cloudflare-apikey-secret
+  namespace: kube-system
+type: Opaque
+---
+# Source: traefik-custom/templates/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: acme-json-certs
+  namespace: kube-system
+spec:
+  accessModes:
+  - ReadWriteMany # I needed both for rw
+  - ReadWriteOnce # I needed both for rw
+  resources:
+    requests:
+      storage: 128Mi
+---
+# Source: traefik-custom/templates/helm-config.yml
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    additionalArguments:
+    - --entrypoints.websecure.http.tls.certresolver=cloudflare
+    - --entrypoints.websecure.http.tls.domains[0].main=example.com
+    - --entrypoints.websecure.http.tls.domains[0].sans=*.example.com
+    - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
+    - --certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+    - --certificatesresolvers.cloudflare.acme.storage=/certs/acme.json
+    - --serversTransport.insecureSkipVerify=true
+    ports:
+      web:
+        redirectTo:
+          port: websecure
+    env:
+      - name: CF_DNS_API_TOKEN # or CF_API_KEY, see for more details - https://doc.traefik.io/traefik/https/acme/#providers
+        valueFrom:
+          secretKeyRef:
+            key: apiKey
+            name: cloudflare-apikey-secret
+      - name: CF_API_EMAIL
+        valueFrom:
+          secretKeyRef:
+            key: email
+            name: cloudflare-apikey-secret
+    ingressRoute:
+      dashboard:
+        enabled: false
+    persistence:
+      enabled: true
+      existingClaim: acme-json-certs
+      accessMode: ReadWriteOnce
+      size: 128Mi
+      path: /certs
+---
+# Source: traefik-custom/templates/ingress-route.yml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+  namespace: kube-system
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`traefik.example.com`)
+    services:
+    - kind: TraefikService
+      name: api@internal
