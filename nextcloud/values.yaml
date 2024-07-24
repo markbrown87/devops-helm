@@ -1,0 +1,28 @@
+# Not very customizable currently
+ingressRoute:
+  url: nextcloud.example.com
+  service:
+    name: nextcloud
+    port: 8080
+
+# Nextcloud Configurations
+nextcloud:
+  internalDatabase:
+    enabled: false
+  
+  externalDatabase:
+    enabled: true
+    type: postgresql
+    host: nextcloud-db-postgresql.postgres.svc.cluster.local:5432
+    user: nextcloud
+    password: nextcloud
+    database: nextcloud
+  
+  persistence:
+    enabled: true
+    accessMode: ReadWriteMany
+  
+  hpa:
+    enabled: true
+    cputhreshold: 90
+    maxPods: 4
