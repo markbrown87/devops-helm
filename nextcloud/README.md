@@ -28,3 +28,6 @@ helm upgrade --install coder . \
     --set database.url=coder-db-postgresql.postgres.svc.cluster.local:5432 \
     --atomic
 ```
+
+## Troubleshooting
+* There might be an issue with installing and the default livenessprobe and readinessprobe. Disable them by `--set nextcloud.livenessProbe.enabled=false --set nextcloud.readinessProbe.enabled=false` on the first install with persistent data. This gives it more than enough time to install and setup.
