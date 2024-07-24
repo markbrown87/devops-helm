@@ -4,7 +4,7 @@ This chart is designed to function with K3s Traefik and works with HelmChartConf
 ## !!WARNING!!
 This chart will not persist unless you follow [these steps](#persistance). This chart also assumes traefik is already installed AND you're using `HelmChartConfig` resources. If you've installed K3s, you should be all good to use this chart as soon as the cluster has been installed.
 
-## Prepare work
+## Prep work
 There are multiple things you must do before installing this chart.
 
 * Have a registered domain you want to use.
