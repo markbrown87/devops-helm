@@ -7,22 +7,24 @@ ingressRoute:
 
 # Nextcloud Configurations
 nextcloud:
-  internalDatabase:
-    enabled: false
-  
-  externalDatabase:
-    enabled: true
-    type: postgresql
-    host: nextcloud-db-postgresql.postgres.svc.cluster.local:5432
-    user: nextcloud
-    password: nextcloud
-    database: nextcloud
+  nextcloud:
+    host: nextcloud.example.com
+
+    strategy:
+      type: RollingUpdate
+
+    extraEnv:
+    - name: OVERWRITECLIURL
+      value: https://nextcloud.example.com
+    - name: OVERWRITEPROTOCOL
+      value: https
   
   persistence:
     enabled: true
     accessMode: ReadWriteMany
+    #size: 500Gi
   
-  hpa:
-    enabled: true
-    cputhreshold: 90
-    maxPods: 4
+  livenessProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
