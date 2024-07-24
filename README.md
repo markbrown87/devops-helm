@@ -11,3 +11,5 @@ Clone down this repository and refer to the chart's README.md for more informati
 ## Current Charts
 * [Coder V2](coder/README.md)
 * [Democratic CSI](democratic-csi/README.md)
+* [Traefik w/ K3s or similiar](traefik/README.md)
+* [NextCloud](nextcloud/README.md)
