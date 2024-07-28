@@ -43,3 +43,6 @@ Then just restart the deployment
 ```bash
 kubectl rollout restart statefulset/home-assistant -n home-assistant
 ```
+
+
+* After making a new user, the page fails to load on the auth callback. Just reload base url, relog in, and you have acces to your home assistant board
