@@ -5,4 +5,4 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   config.yaml: |
-{{ .Files.Get "files/config.yml" | indent 2 }}
+{{ .Files.Get "files/config.yml" | indent 4 }}
