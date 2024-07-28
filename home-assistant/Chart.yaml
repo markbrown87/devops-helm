@@ -10,7 +10,6 @@ dependencies:
 - name: home-assistant
   version: 0.2.70
   repository: http://pajikos.github.io/home-assistant-helm-chart/
-  alias: homeAssistant
 maintainers:
 - name: Mark Brown
   email: mark.brown8790+devops-helm@gmail.com

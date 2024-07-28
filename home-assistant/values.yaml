@@ -5,7 +5,7 @@ ingressRoute:
     name: home-assistant
     port: 8080
 
-homeAssistant:
+home-assistant:
   env:
     - name: TZ
       value: "America/New_York"
