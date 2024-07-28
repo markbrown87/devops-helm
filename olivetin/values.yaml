@@ -2,7 +2,7 @@
 ingressRoute:
   url: olivetin.example.com
   service:
-    name: coder
+    name: olivetin
     port: 1337
 
 # Olivetin configuration
