@@ -1,0 +1,16 @@
+name: olivetin-with-traefik
+version: 0.2.70
+appVersion: 2024.7.3
+description: Olivetin umbrella chart that houses an IngressRoute for clusters using Traefik
+home: https://github.com/markbrown87/devops-helm
+sources:
+- https://github.com/markbrown87/devops-helm
+- https://artifacthub.io/packages/helm/helm-hass/home-assistant
+dependencies: 
+- name: home-assistant
+  version: 0.2.70
+  repository: http://pajikos.github.io/home-assistant-helm-chart/
+maintainers:
+- name: Mark Brown
+  email: mark.brown8790+devops-helm@gmail.com
+  url: https://github.com/markbrown87
