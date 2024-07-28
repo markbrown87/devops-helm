@@ -5,10 +5,10 @@ ingressRoute:
     name: home-assistant
     port: 8080
 
-home-assistant:
+homeAssistant:
   env:
     - name: TZ
       value: "America/New_York"
 
-  persistance:
+  persistence:
     enabled: true
